@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>CaféBooth</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+  <header>
+    <img src="assets/booth-logo.png" alt="CaféBooth Logo">
+    <p>order an item from the menu!</p>
+  </header>
+
+  <!-- menu section -->
+
+    <section class="menu">
+
+      <div class="card" data-theme="cake">
+        <img src="templates/cake-banner.png" alt="cake banner">
+      </div>
+
+      <div class="card" data-theme="latte">
+        <img src="templates/latte-banner.png" alt="latte banner">
+      </div>
+
+      <div class="card" data-theme="matcha">
+        <img src="templates/matcha-banner.png" alt="matcha banner">
+      </div>
+
+      <div class="card" data-theme="boba">
+        <img src="templates/boba-banner.png" alt="boba banner">
+      </div>
+
+      </section>
+    </main>
+
+    <!-- BOOTH -->
+  <section class="strip-view hidden">
+
+  <button id="backBtn">back</button>
+
+  <div class="booth-container">
+
+    <video id="camera" autoplay playsinline></video>
+
+    <button id="captureBtn">order</button>
+    <button id="finishBtn">check out</button>
+    <button id="downloadBtn" class="hidden">download</button>
+
+    <div class="strip-frame">
+
+      <img class="strip-bg" id="stripBg">
+
+      <img class="slot" id="slot1">
+      <img class="slot" id="slot2">
+      <img class="slot" id="slot3">
+
+    </div>
+
+  </div>
+
+</section>
+
+  <script src="script.js"></script>
+
+<div id="flash"></div>
+<div id="grain"></div>
+<div id="count down" class="hidden">3</div>
+
+<audio 
+id="shutterSound" 
+src="assets/camera-click.mp3"
+preload="auto">
+</audio>
+
+<div id="filmBurn"></div>
+
+</body>
+
+</html>

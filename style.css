@@ -1,0 +1,431 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Be Vietnam Pro", sans-serif;
+  background: #f6f1ea;
+}
+
+/* HEADER */
+header {
+  text-align: center;
+  padding: 40px;
+}
+
+/* MENU */
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  padding: 20px;
+  transition: opacity 0.4s ease;
+}
+
+.menu.hidden {
+  display: none !important;
+  opacity: 0; 
+  pointer-events: none;
+}
+
+/* CARDS */
+.card {
+  width: 90%;
+  max-width: 600px;
+  border-radius: 20px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+  background: white;
+
+  transition: transform 0.35s, box-shadow 0.35s ease, opacity 0.4s ease;
+}
+
+.card img {
+  width: 100%;
+  display: block;
+}
+
+.card:hover { 
+  transform: translateY(-6px)
+  rotate(-1deg)
+  scale(1.02);
+
+  box-shadow: 0 18px 30px rgba(0,0,0,0.12);
+}
+
+/* MORPH */
+.card.morph {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1.4);
+  z-index: 9999;
+  margin: 0; 
+
+}
+
+/* STRIP VIEW */
+.strip-view {
+  position: fixed;
+  inset: 0;
+
+  background: #f6f1ea;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 999;
+}
+
+.strip-view.hidden {
+  display: none;
+}
+
+.booth-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+#camera {
+  width: 320px;
+  height: 240px;
+
+  background: black;
+
+  border-radius: 20px;
+
+  object-fit: cover;
+}
+
+.photo-strip {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.photo-strip img {
+  width: 220px;
+  height: 120px;
+
+  object-fit: cover;
+
+  background: #ddd;
+
+  border-radius: 12px;
+}
+
+.hidden { 
+  display: none !important;
+}
+
+.strip-frame { 
+  position: relative; 
+  width: 320px;
+  display: flex; 
+  justify-content: center;
+  min-height: 480px;
+  align-items: flex-start;
+}
+
+.strip-bg { 
+  width: 320px;
+  height: 480px;
+  position: relative;
+  z-index: 3; 
+  pointer-events: none; 
+  display: block;
+  position: absolute;
+  object-fit: contain;
+}
+
+.slot {
+  position: absolute;
+  width: 300px; 
+  height: 125px;  
+  left: 0; 
+  right: 0;
+  margin: 0 auto;
+  object-fit: cover;
+  border-radius: 10px; 
+  z-index: 1; 
+  background: #d9d9d9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+}
+
+#slot1 {
+  top: 100px; 
+}
+
+#slot2 { 
+  top: 225px; 
+}
+
+#slot3 { 
+  top: 350px;
+}
+
+#camera { 
+  transform: scaleX(-1);
+}
+
+@keyframes polaroidShake {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  15% { transform: translate(-2px, 1px) rotate(-1deg); }
+  30% { transform: translate(2px, -2px) rotate(1deg); }
+  45% { transform: translate(-2px, 2px) rotate(0deg); }
+  60% { transform: translate(2px, 1px) rotate(-1deg); }
+  75% { transform: translate(-1px, -1px) rotate(1deg); }
+  100% { transform: translate(0, 0) rotate(0deg); }
+}
+
+.shake { 
+  animation: polaroidShake 0.3s ease;
+}
+
+/* flash effect */
+#flash {
+  position: fixed;
+  inset: 0;
+  background: white;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 10000;
+}
+
+.flash-active {
+  animation: flashEffect 0.25s ease;
+}
+
+@keyframes flashEffect {
+  0% { opacity: 0; }
+  10% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* effects */ 
+
+#grain { 
+  position: fixed; 
+  inset: 0; 
+  pointer-events: none; 
+  z-index: 9999; 
+  opacity: 0.05; 
+  mix-blend-mode: soft-light; 
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23noise)' opacity='0.4'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  animation: grainMove 0.6s steps(2) infinite;
+}
+
+@keyframes grainMove {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(-1px, 1px); }
+  50% { transform: translate(1px, -1px); }
+  75% { transform: translate(-1px, -1px); }
+  100% { transform: translate(1px, 1px); }
+}
+
+/* finish and download */
+
+#finishBtn, #downloadBtn {
+  padding: 10px 16px;
+  font-size: 12px;
+  border: none;
+  cursor: pointer;
+}
+
+#finishBtn {
+  background: transparent;
+  border: 2px solid #2d2d2d;
+  color: #2d2d2d;
+  padding: 10px 16px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: "Be Vietnam Pro", sans-serif;
+  transition: all 0.2s ease; 
+  position: relative;
+  overflow: hidden;
+}
+
+#finshBtn:hover {
+  background: #2d2d2d;
+  color: #f6f1ea;
+}
+
+#finishBtn::after {
+  content: ""; 
+  position: absolute; 
+  top: 100%; 
+  left: 10%;  
+  width: 80%;
+  height: 40px; 
+  background: #fffdf8;   
+  border-radius: 0 0 8px 8px;
+  opacity: 0;       
+}
+
+#finishBtn.printing {
+  animation: buttonPress 0.4s ease;
+}
+
+#finishBtn.printing::after { 
+  animation: recieptPrint 0.6s ease forwards;
+}
+
+@keyframes buttonPress { 
+  0% { 
+    transform: scale(1); 
+  }
+  50% { 
+    transform: scale(0.96); 
+  }
+  100% { 
+    transform: scale(1);
+  }
+}
+
+@keyframes recieptPrint {
+  0% { 
+   opacity: 0; 
+   transform: translateY(-10);
+  }
+  20% { 
+    opacity: 1;
+  }
+  100% { 
+    opactity: 1; 
+    transform: translateY(25px);
+  
+  }
+}
+
+#downloadBtn {
+  background: #2d2d2d;
+  color: white;
+}
+
+#backBtn { 
+  background: transparent;
+  border: 2px solid #2d2d2d;
+  color: #2d2d2d;
+  padding: 10px 16px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+#backBtn:hover {
+  background: #2d2d2d;
+  color: #f6f1ea;
+}
+
+#captureBtn {
+  background: transparent;
+  border: 2px solid #2d2d2d;
+  color: #2d2d2d;
+  padding: 10px 16px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+#captureBtn:hover {
+  background: #2d2d2d;
+  color: #f6f1ea;
+}
+
+/* count down */
+
+#countdown { 
+  position: fixed; 
+  inset: 0; 
+  display: flex; 
+  align-items: center;
+  justify-content: center;
+  font-size: 120px;
+  font-weight: 700;
+  color: white; 
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  z-index: 10001;
+  pointer-events: none; 
+  animation: countdownPop 1s ease;
+}
+
+@keyframes countdownPop { 
+  0% { 
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% { 
+    opacity: 0;
+    transform: scale(1.2);
+  }
+}
+
+body::before { 
+  content: ""; 
+  position: fixed; 
+  inset: 0;
+  background: rgba(255, 210, 170, 0.08);
+  pointer-events: none; 
+  z-index: 1; 
+  mix-blend-mode: soft-light;
+}
+
+#camera, 
+.slot, 
+#finalStrip { 
+  filter: 
+  sepia(0.20)
+  saturate(1.08)
+  contrast(1.02)
+  brightness(1.01);
+}
+
+/* filmish */ 
+
+#filmBurn { 
+  position: fixed; 
+  inset: 0; 
+  pointer-events: none;
+  opacity: 0;
+  z-index: 10002;
+
+  background:
+    radial-gradiant( circle at center, 
+    rgba(255,180,80,0.8),
+    rgba(255,80,0,0.4)
+    transparent 70%);
+}
+
+#filmBurn.active { 
+  animation: burnFlash 0.6s ease;
+}
+
+@keyframes burnFlash { 
+  0% {
+    opacity: 0;
+    transform: scale(1.2);
+  }
+
+  30% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1);
+
+  }
+
+}
